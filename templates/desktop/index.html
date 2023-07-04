@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Bajar Bhav - {{ date }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/desktop.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='fevicon.png') }}">
+    <style type='text/css'>
+      iframe.goog-te-banner-frame{ display: none !important;}
+      </style>
+
+      <style type='text/css'>
+      body {position: static !important; top:0px !important;}
+      </style>
+
+      <style type='text/css'>
+      .goog-logo-link {display:none !important;}
+      .goog-te-gadget{color: transparent !important;}
+      </style>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Commodity Prices(20Kg.) - {{ date }}</h1>
+    {% if no_data_message %}
+      <div class="no-data-message">{{ no_data_message }}</div>
+    {% else %}
+      <div class="dropdown-container">
+        <form method="POST">
+          <label class="label" for="district">District:</label>
+          <select name="district" id="district">
+            <option value="">Select District</option>
+            {% for district in districts%}
+              <option value="{{ district[0] }}">{{ district[0] }}</option>
+            {% endfor %}
+          </select>
+
+          <label class="label" for="market">Market:</label>
+          <select name="market" id="market">
+            <option value="">Select Market</option>
+            {% for market in markets %}
+              <option value="{{ market[0] }}">{{ market[0] }}</option>
+            {% endfor %}
+          </select>
+
+          <label class="label" for="commodity">Commodity:</label>
+          <select name="commodity" id="commodity">
+            <option value="">Select Commodity</option>
+            {% for commodity in commodities %}
+              <option value="{{ commodity[0] }}">{{ commodity[0] }}</option>
+            {% endfor %}
+          </select>
+
+          <label class="label" for="date">Date:</label>
+          <select name="date" id="date">
+            <option value="">Select Date</option>
+            {% for date in dates %}
+              <option value="{{ date[0].strftime('%Y-%m-%d') }}">{{ date[0].strftime('%d / %m / %Y') }}</option>
+            {% endfor %}
+          </select>
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Commodity</th>
+            <th>District</th>
+            <th>Market</th>
+            <th>Min Price</th>
+            <th>Max Price</th>
+            <th>Modal Price</th>
+            <th>Arrival Date</th>
+            <th>Graph</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for price in prices %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ price.1 }}</td>
+            <td>{{ price.3 }}</td>
+            <td>{{ price.2 }}</td>
+            <td>{{ price.5/5 }}</td>
+            <td>{{ price.6/5 }}</td>
+            <td>{{ price.7/5 }}</td>
+            <td>{{ price.8.strftime('%d / %m / %Y') }}</td>
+            <td><a href="{{ url_for('graph.graph', commodity=price.1, market=price.2, district=price.3) }}"><svg class="graph-icon"><use xlink:href="#graph-icon"></use></svg></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+      <svg style="display: none;">
+        <symbol id="graph-icon" viewBox="0 0 512 512">
+          <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z"/>
+        </symbol>
+      </svg>
+      <footer>
+        <p class="notranslate">&copy; DigiFarm. Made by Harsh Mori.</p>
+      </footer>
+    {% endif %}
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'en,gu',
+        }, 'google_translate_element');
+
+        setTimeout(function() {
+
+          var selectElement = document.querySelector('#google_translate_element select');
+          selectElement.value = 'gu';
+          selectElement.dispatchEvent(new Event('change'));
+        }, 1000);
+      }
+    </script>
+      <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  </body>
+</html>

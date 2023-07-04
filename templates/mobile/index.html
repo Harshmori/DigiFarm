@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bajar Bhav -  {{ date }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/mobile.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='fevicon.png') }}">
+</head>
+<body>
+  {% if selected_district %}
+    {% if selected_market %}
+      <h2>Commodity Data for {{ selected_market }}</h2>
+      <h2>Date : {{date}}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Commodity</th>
+            <th>Min Price</th>
+            <th>Max Price</th>
+            <th>Graph</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set counter = namespace(value=1) %}
+          {% for commodity in commodities %}
+            {% if commodity[2] == selected_market %}
+              <tr>
+                <td>{{ counter.value }}</td>
+                <td>{{ commodity[1] }}</td>
+                <td>{{ commodity[5]/5 }}</td>
+                <td>{{ commodity[6]/5 }}</td>
+                <td style="text-align: center;"><a href="{{ url_for('graph.graph', commodity=commodity[1], market=selected_market, district=selected_district) }}"><svg class="graph-icon"><use xlink:href="#graph-icon"></use></svg></a></td>
+              </tr>
+              {% set counter.value = counter.value + 1 %}
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="district-list">
+        <h2>Markets in {{ selected_district }}:</h2>
+        <ul class="market-list">
+          {% for market in markets %}
+            <li><a href="{{ url_for('index', district=selected_district, market=market[0]) }}">{{ market[0] }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="district-list">
+      <h2>Select District:</h2>
+      <ul>
+        {% for district in districts %}
+          <li><a href="{{ url_for('index', district=district[0]) }}">{{ district[0] }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <footer>
+    <p class="notranslate">&copy; DigiFarm. Made by Harsh Mori.</p>
+  </footer>
+  <svg style="display: none;">
+    <symbol id="graph-icon" viewBox="0 0 512 512">
+      <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z"/>
+    </symbol>
+  </svg>
+  <div id="google_translate_element"></div>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'en,gu',
+        }, 'google_translate_element');
+
+        setTimeout(function() {
+
+          var selectElement = document.querySelector('#google_translate_element select');
+          selectElement.value = 'gu';
+          selectElement.dispatchEvent(new Event('change'));
+        }, 1000);
+      }
+    </script>
+      <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>

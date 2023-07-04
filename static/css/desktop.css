@@ -1,0 +1,97 @@
+iframe {
+  display: none;
+}
+.goog-logo-link,.goog-te-gadget span{
+
+display:none !important;
+
+}
+
+.goog-te-gadget{
+
+color:transparent!important;
+font-size :0;
+
+}
+body {
+  padding: 20px;
+}
+.graph-icon {
+  width: 24px;
+  height: 18px;
+  fill: #0c4f18;
+}
+table {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th {
+  background-color:  #0c4f18;
+  color: #FFFFFF;
+  font-family: Helvetica-Bold, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+td {
+  background-color: #D0E9C6;
+  color: black;
+  font-family: Helvetica, sans-serif;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid black;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+.no-data-message {
+  color: red;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
+.dropdown-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+.dropdown-container label {
+  margin-right: 0.5rem;
+}
+
+.dropdown-container select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 200px;
+  margin-right: 10px;
+}
+.dropdown-container button {
+    padding: 0.5rem 1rem;
+    background-color: #0c4f18;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 10px;
+    font-family: 'Helvetica', sans-serif;
+  }
+
+  .dropdown-container button:hover {
+    background-color: #0b3f12;
+  }
+  .label{
+    font-family: 'Helvetica-Bold', sans-serif;
+  }
